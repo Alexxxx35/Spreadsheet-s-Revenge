@@ -1,11 +1,15 @@
 import tkinter as tk
-from tkinter import font
+from tkinter import font, Menu
+import os
 
 
 class app_window:
     def __init__(self, title: str, *window_size: tuple) -> None:
         self.root = tk.Tk()
         print(font.families())
+        self.root.iconbitmap(os.path.join("images", "spreadsheet.ico"))
+        #self.menubar = Menu(self.root, background="blue", fg="grey")
+        # self.root.config(menu=self.menubar)
         if not window_size:
             w = 800  # width for the Tk root
             h = 650  # height for the Tk root
@@ -32,15 +36,22 @@ class app_window:
         self.root.title(title)
 
     def menu(self):
-        label = tk.Label(
+        self.menu_label = tk.Label(
             self.root, text=" Welcome to Spreadsheet Cleaner.\n Choose an action:")
-        label.grid(row=0, column=1)
-        data_generation_button = tk.Button(text="Data generation menu", width=20,
-                                           height=2)
-        data_generation_button.grid(row=1, column=0, padx=10, pady=30)
+        self.menu_label.grid(row=0, column=1)
+        self.data_generation_button = tk.Button(text="Data generation menu", width=20,
+                                                height=2, command=lambda: self.data_generation_page())
+        self.data_generation_button.grid(row=1, column=0, padx=10, pady=30)
 
     def main(self):
         self.root.mainloop()
+
+    def data_generation_page(self):
+        self.menu_label.destroy()
+        self.data_generation_button.destroy()
+        self.generator_menu_label = tk.Label(
+            self.root, text="Spreadsheet Cleaner File Generator")
+        self.generator_menu_label.grid(row=0, column=1)
 
 
 menu_window = app_window("Spreadsheet Cleaner", (600, 400))
