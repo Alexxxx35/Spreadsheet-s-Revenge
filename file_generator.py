@@ -11,6 +11,10 @@ class data:
     def __init__(self, number_of_row) -> None:
         self.number_of_row = number_of_row
         self.timer = 1
+        self.data = []
+
+    def __len__(self):
+        return len(self.data)
 
     def fake_data(self) -> list:
         i = 0
@@ -23,11 +27,10 @@ class data:
         }
         car_data = json.loads(requests.get(car_api_url, headers=headers).content.decode(
             'utf-8'))
-        self.data = []
         faker = Faker()
         phone = "0"+str(random.randint(6, 7))
         while i < self.number_of_row:
-            self.profile = faker.simple_profile()
+            self.profile = faker.simple_profile()  # 6
             self.profile["birthdate"] = str(self.profile["birthdate"])
             for index, element in enumerate(range(8)):
                 element = random.randint(1, 9)
@@ -55,11 +58,12 @@ class data:
                 faker.company_suffix()
             self.profile["compagny_purpose"] = faker.bs()
             self.profile["compagny_address"] = faker.address()
-            data.append(self.profile)
+            self.data.append(self.profile)
             i += 1
-            print(json.dumps(data))
-            time.sleep(self.timer)
-        return json.dumps(data)
+            # print(json.dumps(data))
+            # time.sleep(self.timer)
+        return self.data
+        # return json.dumps(data)
 
     def csv_builder(self, data: str, csv_path: str, append: bool):
         if append:
@@ -73,5 +77,5 @@ class data:
         print(df)
 
 
-d = data()
-d.csv_builder(d.fake_data(10), os.path.join("csv", "data.csv"), True)
+# d = data(10)
+# d.csv_builder(d.fake_data(), os.path.join("csv", "data.csv"), True)
