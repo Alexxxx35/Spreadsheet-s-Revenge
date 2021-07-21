@@ -48,6 +48,9 @@ class app_window:
 
     def entry_clicker(self, event):
         print(self.number_of_rows_value.get())
+        self.number_of_rows_value=self.number_of_rows_value.get()
+        self.number_of_rows.destroy()
+        self.number_of_row_label.destroy()
 
     def data_generation_page(self):
         self.menu_label.destroy()
@@ -65,7 +68,7 @@ class app_window:
             self.root, textvariable=self.number_of_rows_value)
         self.number_of_rows.grid(row=1, column=1, sticky="w")
         self.number_of_rows.bind("<Return>", self.entry_clicker)
-        
+
         # for x in range(20):
         #     entry = "entry{}".format(x)
         #     entries.append(entry)
