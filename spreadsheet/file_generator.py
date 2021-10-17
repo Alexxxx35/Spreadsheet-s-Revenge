@@ -7,7 +7,7 @@ import pandas as pd
 import os
 
 
-class data:
+class spreadsheet_generator:
     def __init__(self, number_of_row) -> None:
         self.number_of_row = number_of_row
         self.timer = 1
